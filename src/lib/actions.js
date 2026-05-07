@@ -1,6 +1,6 @@
 'use server';
 import { revalidatePath } from "next/cache";
-// import { postTask } from "./tasks";
+import { postTask } from "./tasks";
 import { redirect } from "next/navigation";
 
 export const createATask = async (formData) => {
@@ -24,24 +24,24 @@ export const createATask = async (formData) => {
     return res;
 }
 
-// export const newTaskAction = async (formData) => {
+export const newTaskAction = async (formData) => {
     
-//     const newTask = Object.fromEntries(formData.entries());
+    const newTask = Object.fromEntries(formData.entries());
 
-//     if(!newTask.title){
-//         return {success: false, error: 'Title is required'}
-//     }
+    if(!newTask.title){
+        return {success: false, error: 'Title is required'}
+    }
 
-//     if(newTask.title.trim().length < 5){
-//         return {success: false, error: 'Title must be at least 5 characters or longer'}
-//     }
+    if(newTask.title.trim().length < 5){
+        return {success: false, error: 'Title must be at least 5 characters or longer'}
+    }
 
-//     console.log('Adding a task with name:', newTask);
+    console.log('Adding a task with name:', newTask);
 
-//     const res = await postTask(newTask);
-//     if(res.ok){
-//         revalidatePath('/tasks');
-//         redirect('/tasks');
-//     }
-//     return res;
-// }
+    const res = await postTask(newTask);
+    if(res.ok){
+        revalidatePath('/tasks');
+        redirect('/tasks');
+    }
+    return res;
+}
